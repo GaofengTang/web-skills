@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>text</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            li{
+                list-style: none;
+            }
+            #box{
+                width: 100%;
+                height: 535px;
+                outline: 1px solid red;
+            }
+            #box #photo{
+                width: 1200px;
+                height: 535px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            #box ul li{
+                float: left;
+                background: rgb(238, 233, 233);
+                border-radius: 50%;
+                position: relative;
+                margin: 5px;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                top: -50px;
+                left: 700px;
+            }
+            #box ul .red_bg{
+                background: rgb(235, 9, 9);
+            }
+            #box #photo #button_left{
+                background: url(./img/lunhuan_focus.png) no-repeat -3px -5px;
+                width: 19px;
+                height: 54px;
+                position: absolute;
+                top: 250px;
+                left: 220px;
+            }
+            #box #photo #button_left:hover{
+                background: url("./img/lunhuan_focus.png") no-repeat -3px -66px;
+            }
+            #box #photo #button_right{
+                float: right;
+                background: url("./img/lunhuan_focus.png") no-repeat -60px -5px;
+                width: 19px;
+                height: 54px;
+                position: absolute;
+                top: 250px;
+                right: 220px;
+            }
+            #box #photo #button_right:hover{
+                background: url("./img/lunhuan_focus.png") no-repeat -60px -66px; 
+}
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <div id="photo">
+                <img  src="./img/1.jpg" alt="">
+                <img style="display: none;" src="./img/2.jpg" alt="">
+                <img style="display: none;" src="./img/3.jpg" alt="">
+                <img style="display: none;" src="./img/4.jpg" alt="">
+                <img style="display: none;" src="./img/5.jpg" alt="">
+                <img style="display: none;" src="./img/6.jpg" alt="">
+                <div id="button_left"></div>
+                <div id="button_right"></div>
+            </div>
+            <ul>  <!-- 可以放入<div id="photo">,但是图片大小要相同，否则要考虑绝对定位； 按钮同样需要考虑-->
+                <li class="red_bg"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+        </div>
+        <script>
+            var photo_list = document.querySelectorAll("#box #photo img");
+            var choose_list = document.querySelectorAll("#box ul li");
+            var photo = document.getElementById("photo");
+            var button_left = document.getElementById("button_left");
+            var button_right = document.getElementById("button_right");
+            
+
+            // 自动播放
+            var count = 0;
+            var timer = setInterval(running, 2000);
+            function running() {
+                count++;
+                change_img();
+            };
+            function change_img() {  // 这里将函数分离出来是为了鼠标悬停在小圆点上跳转图片和点击左边按钮图片跳转
+                count = (count == 6) ? 0:count;
+                count = (count == -1) ? 5:count;
+                for(var i = 0; i < photo_list.length; i++){
+                    photo_list[i].style.display = "none";
+                    choose_list[i].removeAttribute("class", "red_bg");
+                } 
+                photo_list[count].style.display = "block";
+                choose_list[count].setAttribute("class", "red_bg");  
+              }
+            // 鼠标悬浮在图片、按钮上，停止播放
+            photo.addEventListener("mouseover",stop_run, false);
+            function stop_run() {
+                clearInterval(timer);
+            };
+            photo.addEventListener("mouseout",restart_run, false);
+            function restart_run() {
+                timer = setInterval(running, 2000);
+            };
+            // 进入小圆点，跳转到对应图片
+            for(var j = 0; j < choose_list.length; j++){
+                choose_list[j].num= j;    // 闭包问题，如果直接给count = j;匿名函数里面的传了j会一直是传入的第一个数
+                choose_list[j].addEventListener("mouseover",function(){
+                    clearInterval(timer);
+                    count = this.num;
+                    change_img();
+                
+                }, false);   
+            }
+
+            // 按钮控制图片播放
+            button_right.addEventListener("click", function () {running()}, false);
+            button_left.addEventListener("click", function () {
+                count--;
+                change_img(); 
+            }, false);
+        </script>
+    </body>
+</html>
