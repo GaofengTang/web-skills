@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>登录/注册</title>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">      
+        <script src="./vue.min.js"></script>       
+        <!-- <script src="jquery-3.4.1.min.js" type="text/javascript"></script>         -->
+    </head>
+    <body>
+        <div id="comment">
+            <!-- 登录 -->
+            <div class="loginbox" v-show="loginStatus" @click="loginboxClick" style="display: none;">
+                <div class="box" @click="stopProp">
+                    <h3>用户登录</h3>
+                    <form name="login" id="login">
+                        <input type="text" placeholder="请输入姓名" id="login-usernm" class="username">
+                        <input type="password" placeholder="请输入密码" id="login-pwd" class="psd">
+                        <input type="button" value="立即登陆" @click="login"/>
+                        <input type="button" value="立即注册" @click="showregister" class="blueBtn"/>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 注册 -->
+            <div class="loginbox registerbox" v-show="registerStatus" @click="registerboxClick" style="display: none;">
+                <div class="box" @click="stopProp">
+                    <h3>用户注册</h3>
+                    <form  name="register" id="register">
+                        <input type="text" placeholder="请输入姓名" id="register-usernm">
+                        <input type="password" placeholder="请输入密码" id="register-pwd">
+                        <input type="password" placeholder="请再次输入密码" id="register-pwd-again">
+                        <input type="button" value="立即注册" @click="register"/>
+                        <input type="button" value="立即登陆" @click="showLogin" class="blueBtn"/>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 评论区 -->
+            <div class="commentbox">
+                <!-- 登录后头像部分 -->
+                <div class="userbar" v-show="userbarStatus" style="display: none;">
+                    <img :src="'img/' + currentUser.userimg" class="userimg" alt="">
+                    <span class="loginout" @click="loginout">退出账号&nbsp;&nbsp;</span>
+                    <span class="username" v-text="currentUser.username"></span>
+                </div>
+
+                <!-- 留言列表 -->
+                <div class="commentlist">
+                    <dl v-for="(value, index) in comments">
+                        <dt>
+                            <img :src="'img/' + value.userimg">
+                            <span class="username">{{ value.username }}</span>
+                        </dt>
+                        <dd class="commentwords"><i class="icon-style fa fa-fw fa-comment-o"></i>{{ value.words }}</dd>
+                        <dd class="btbar">
+                            <span class="data red"><i class="icon-style fa fa-2x fa-clock-o"></i>时间<strong>{{ value.time }}</strong></span>
+                        </dd>
+                    </dl>
+                    <!-- 文字输入和登录注册按钮 -->
+                    <div class="wordsbox">
+                        <textarea id="textArea" placeholder="请输入留言"></textarea>
+                        <span @click="showLogin" v-show="lrBtnStatus">登录</span>
+                        <span @click="showregister" v-show="lrBtnStatus">注册</span>
+                        <input type="button" value="提交" @click="subCommont">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./js/index.js"></script>
+</html>
