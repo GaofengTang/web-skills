@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JS实现效果-点击按钮返回到页面顶部</title>
+        <style>
+		    body{margin:0;}
+            .container{margin:0;padding:0;}
+            .box1,.box2,.box3,.box4{width:100%;height:500px;}
+            .box1{background: deepskyblue;}
+            .box2{background: yellowgreen;}
+            .box3{background: darkred;}
+            .box4{background: blueviolet;}
+            #icon{width:50px;height:50px;font-size: 20px;background: #CDCC7D;line-height: 50px;text-align: center;position: fixed;bottom:20px;right:20px;color:#666;font-weight: bolder;cursor:pointer;}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box1"></div>
+            <div class="box2"></div>
+            <div class="box3"></div>
+            <div class="box4"></div>
+            <div class="box1"></div>
+            <div class="box2"></div>
+            <div class="box3"></div>
+            <div class="box4"></div>
+            <div class="box1"></div>
+            <div class="box2"></div>
+            <div class="box3"></div>
+            <div class="box4"></div>
+            <div id="icon">↑</div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        window.onload = function(){
+            var btn = document.getElementById("icon");
+            var timer = null;
+
+            btn.onclick = function(){
+                //加入定时器让它由快到慢滚动到顶部
+                timer = setInterval(function(){
+                    //获取当前scrollTop的高度位置（兼容ie和chrom浏览器）
+                    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    //开平方根，速度呈抛物线缓慢降低
+                    var ySpeed = Math.sqrt(scrollTop);
+                    document.documentElement.scrollTop = document.body.scrollTop = scrollTop - ySpeed;
+                    if(scrollTop == 0){
+                        clearInterval(timer);
+                    }
+                },5);
+            }
+        }
+    </script>
+</html>
+
