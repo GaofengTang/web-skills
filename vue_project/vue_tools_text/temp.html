@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>test</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            #deleteBtn{
+                width: 20px;
+                height: 20px;
+                background: aqua;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="demo1">
+            <input id="input" type="text" onchange="watchValue(this.id)">
+            <div id="deleteBtn" onclick="deleteValue()" style="display: none;"></div>
+        </div>
+    </body>
+    <script>
+        function watchValue(){
+            var value = document.getElementById('input').value
+            console.log(value)
+            if (value) {
+                document.getElementById('deleteBtn').style.display = 'block'
+            }
+        }
+        function deleteValue(){
+            document.getElementById('input').value = ''
+            document.getElementById('deleteBtn').style.display = 'none'
+        }
+
+    </script>
+</html>

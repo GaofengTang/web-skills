@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-      <router-view class="filmsArea"></router-view>
+      <router-view></router-view>
     </div>
     <Footer class="footer"/>
   </div>

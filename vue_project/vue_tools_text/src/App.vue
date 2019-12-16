@@ -14,6 +14,7 @@ export default {
 *{
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }
 li{
   list-style: none;
@@ -21,11 +22,4 @@ li{
 input{
   outline: none;
 }
-/* #app {
-  width: 300px;
-  height: 700px;
-  border: 2px solid red;
-  position: fixed;
-  margin: 30px auto;
-} */
 </style>
