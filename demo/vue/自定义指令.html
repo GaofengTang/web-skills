@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>过渡</title>
+        <meta charset="UTF-8">
+        <script src="./vue.min.js"></script>
+        <style>
+            #box{
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <p v-changecolor="color">{{message}}</p>
+        </div>
+        <script>
+            // Vue.directive('hello',{
+            //     inserted: function (el,binding) { 
+            //         console.log(el);
+            //         el.style.color = "blue";
+            //         console.log(binding);   
+            //         el.style.background = binding.value;
+            //      },
+            //     update: function (el,binding) { 
+            //         console.log(el);
+            //         el.style.color = "blue";
+            //         console.log(binding);   
+            //         el.style.background = binding.value;
+            //      }})
+            Vue.directive("changecolor",function (el,binding) {
+                el.style.color = "blue";
+                el.style.background = binding.value;
+              })
+            var vm = new Vue({
+                el: "#box",
+                data: {
+                    message: "黑色字体",
+                    color: "red"
+                }
+            })
+        </script>
+    </body>
+</html>

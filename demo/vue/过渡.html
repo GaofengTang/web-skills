@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>过渡</title>
+        <meta charset="UTF-8">
+        <script src="./vue.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+        <style>
+            #danyuansu{
+                width: 100%;
+                height: 200px;
+                background-color: cadetblue;
+                color: crimson;
+            }
+            #duoliebiao{
+                width: 100%;
+                height: 200px;
+                background-color: rgb(191, 241, 144);
+                color: rgb(27, 24, 25);
+            }
+            /* .xxx.enter-active, .xxx-leave-active {
+                transition: opacity 2s;
+            }
+            .xxx-enter, .xxx-leave-to  {
+                opacity: 0;
+            } */
+        </style>
+    </head>
+    <body>
+        <!-- 单元素单组件过渡 -->
+        <div id="danyuansu">
+            <button @click="isShow = !isShow">按钮</button>
+            <transition name="" enter-active-class="animated rotateIn"
+            leave-active-class="animated rollOut" 
+            appear
+            appear-active-class="animated fadeInRightBig"
+            mode="out-in">
+                <p v-show="isShow">this is a text</p>
+            </transition>   
+        </div>
+        <script>
+            new Vue({
+                el: '#danyuansu',
+                data: {
+                    isShow: true
+                }
+            })
+        </script>
+        <!-- 多列表过渡 -->
+        <div id="duoliebiao">
+            <input type="text" v-model="contentAdd">
+            <button @click='clickAddList'>添加</button>
+            <transition-group enter-active-class="animated flipInX" leave-active-class="animated rollOut" tag="ul">
+                <li v-for="(data,index) in lists" :key="data">{{data}} <button @click="delData(index)">del</button></li>  
+                <!--注意获取index的顺序，在值的后面获取-->
+            </transition-group>     
+            <script>
+                new Vue({
+                    el: '#duoliebiao',
+                    data: {
+                        lists: [],
+                        contentAdd: ''
+                    },
+                    methods: {
+                        clickAddList: function () {
+                            this.lists.push(this.contentAdd)
+                            },
+                        delData: function (value) {
+                            this.lists.splice(value,1)
+                          }
+
+                    }
+                })
+            </script>
+        </div>
+    </body>
+</html>

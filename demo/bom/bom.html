@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>dom</title>
+        <script src="./jquery-3.4.1.min.js"></script>
+        <script>
+            // var a = confirm("请输入你的名字：")
+            // window.open("www.baidu.com","百度","width=500, height=500")
+            // $('#button').click(function () { 
+            //     //  window.location.assign("www.baidu.com")
+            //      var a = confirm("请授权")
+            //      alert(a)
+            // });
+            // window.onload = function(){
+            //     var b = document.getElementById('button')
+            //     b.onclick = function(){
+            //         // window.open("http://www.baidu.com","百度","width=500, height=500") 打开一个窗口，可设置窗口大小
+            //         // window.location.assign("http://www.baidu.com") 跳转到另一个页面
+            //         // var a =  location.href    返回当前url
+            //         // alert(a)
+            //         // var c = history.length  返回打开的窗口数
+            //         // history.back() = history.go(-1) 0重载 1前进
+                    
+            //     }
+            // }
+            window.onload = function () {
+                var a = document.getElementById("text")
+                alert(a.childNodes.length)   // 换行之前3 换行之后7，每个换行都会生成一个空白节点
+                alert(a.childNodes[0].nodeName)  // 换行之前之后都返回EM
+                alert(a.childNodes[1].nodeName)  // 换行之前之后都返回B  
+                alert(a.childNodes[2].nodeType)  // 空白节点不影响正常取值除了改变length
+              }
+
+        </script>
+        <style>
+            #button{
+                background-color: aqua;
+                color: blue;
+                width: 50px;
+                height: 30px;
+            }
+        </style>
+        <body>
+            <input type="button" id="button" value="按钮">
+            <div id="text">
+                <em>aa</em>
+                <b>bb</b>
+                <span>cc</span>
+            </div>
+        </body>
+    </head>
+</html>

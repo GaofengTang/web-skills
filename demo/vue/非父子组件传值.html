@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vuedemo3</title>
+        <meta charset="UTF-8">
+        <script src="./vue.min.js"></script>
+
+    </head>
+    <body>
+        <div id="box">
+            <div>{{count}}</div>
+            <myaddbtn :count="count"></myaddbtn>
+            <myremovebtn :count="count"></myremovebtn>
+        </div>
+        <script type="text/javascript">
+            var busVM = new Vue()
+            new Vue({
+                el: "#box",
+                data: {
+                    count: 0
+                },
+                mounted: function(){
+                    busVM.$on('xxx',function(num){
+                        this.count = num
+                    }.bind(this))
+                },
+                components: {
+                    "myaddbtn": {
+                        template: '<button @click="but">+</button>',
+                        props: ['count'],
+                        methods:{
+                            but: function(){
+                                busVM.$emit("xxx", this.count + 1)
+                            }
+                        }
+                    },
+                    "myremovebtn": {
+                        props: ['count'],
+                        template: '<button @click="but">-<button>',
+                        methods:{
+                            but: function(){
+                                busVM.$emit("xxx", this.count - 1)
+                            }
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

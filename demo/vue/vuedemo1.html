@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vuedemo1</title>
+        <meta charset="UTF-8">
+        <script src="./vue.min.js"></script>
+    </head>
+    <body>
+        <div id="text">
+            <p>总计：{{total}}</p>
+            <button-counter v-on:counter="total_n"></button-counter><p>零食</p>
+            <button-counter v-on:counter="total_n"></button-counter><p>水果</p>
+        </div>
+        <template id="temp">
+            <div>
+                <button v-on:click="counters(-1)">-</button>{{num}}<button v-on:click="counters(1)">+</button>
+            </div>
+        </template>
+
+        <script>
+            Vue.component('button-counter',{
+                template: '#temp',
+                data: function() {
+                    return {
+                        num: 0
+                    }
+                  },
+                methods: {
+                    "counters": function(n){
+                        if(n == -1){
+                            this.num -= 1;
+                            this.$emit("counter", -1);
+                        } else{
+                            this.num += 1;
+                            this.$emit("counter", 1)
+                        }
+                    }
+                }
+            })
+            var vm = new Vue({
+                el: '#text',
+                data: {
+                    total: 0
+                },
+                methods: {
+                    total_n: function(a) {
+                        if(a == -1){
+                            this.total -= 1
+                        }else{
+                            this.total += 1
+                        }
+                        console.log(a)
+                        console.log()
+
+                    }.bind(this)
+                }
+
+            })    
+        </script>
+    </body>
+</html>

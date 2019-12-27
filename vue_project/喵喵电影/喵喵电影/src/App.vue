@@ -21,11 +21,13 @@ li{
 input{
   outline: none;
 }
-/* #app {
+#app {
+  min-width: 300px;
   width: 300px;
   height: 700px;
+  min-height: 700px;
   border: 2px solid red;
   position: fixed;
   margin: 30px auto;
-} */
+}
 </style>

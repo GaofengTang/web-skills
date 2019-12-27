@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UFT-8">
+        <title>vue_demo</title>
+        <script src="./vue.min.js"></script>
+        <style>
+            #demo1{
+                float: left;
+                width: 100%;
+                height: 100px;
+                background: darkblue;
+            }
+            .demo2{color: cornsilk;}
+
+            #demo3{
+                float: left;
+                width: 100%;
+                height: 200px;    
+                background-color: blueviolet;              
+            }
+
+            #demo4, #demo6{
+                float: left;
+                width: 100%;
+                height: 200px;    
+                background-color: rgb(43, 226, 150);              
+            }
+
+            #demo5,#demo7{
+                float: left;
+                width: 100%;
+                height: 200px;    
+                background-color: rgb(87, 30, 194);              
+            }
+        </style>
+    </head>
+    <body>
+        <!-- bind属性绑定练习 -->
+        <div id="demo1">
+            <p v-html=message v-bind:class="{'demo2': choose}" v-bind:style="border_li">{{ message }}</p>
+        </div>
+        <script>
+            new Vue({
+                el: '#demo1',
+                data: {
+                    message: "<b>hello</b>",
+                    choose: false,
+                    border_li: {
+                        background: 'green',
+                        color: 'red'
+                    }
+                }
+            })
+        </script>
+
+        <!-- v-model双向数据绑定 -->
+        <div id="demo3">
+            <p>你的名字是：{{ show_name }}, 你的身份是：{{ family_p}}</p>
+            <input type="text" v-model.lazy="show_name" placeholder="请输入"> 
+            <input type="checkbox"  v-model="family_p" id="fa" value="Father"><label for="fa">father</label> 
+            <input type="checkbox"  v-model="family_p" id="ma" value="Mather"><label for="ma">mather</label> 
+            <input type="checkbox"  v-model="family_p" id="sis" value='sister'><label for="sis">sister</label> 
+            <input type="checkbox"  v-model="family_p" id="bro" value="brother"><label for="bro">brother</label>  
+            <!-- value一定要有，不然都是返回null,会4个同选同消，绑定的key的value一直是[],返回一个数组  -->
+        </div>
+        <script>
+            new Vue({
+                el: '#demo3',
+                data: {
+                    show_name: '',
+                    family_p: []
+                }
+            })
+        </script>
+
+
+        <!-- for循环 -->
+        <div id="demo4">
+            <p v-for='a in [1, 3, 4]'>{{ a }}</p>
+        </div>
+        <script>
+            new Vue({
+                el: '#demo4',
+                data:{
+                }
+            })
+        </script>
+
+        <!-- v-on事件处理和watch监听     -->
+        <div id="demo5">
+            <input type="text" placeholder="请输入"><input  @submit="gogo" type="submit" value="按钮">
+            <p>{{ counter }}</p>
+            <button  style = "font-size:25px;">点我</button>
+        </div>
+        <script>
+            var a = new Vue({
+                el: "demo5",
+                data:{
+                    counter: 0,
+                }
+            });
+            a.$watch('gogo',function(){
+                alert('点击成功')
+            })
+        </script>
+        <div id="demo6">
+            <my-name v-bind:message="msg"></my-name>
+            <my_name message="hhhhh"></my_name>
+        </div>
+        <script>
+            // 全局组件
+            Vue.component("my_name", {
+                props: ['message'],
+                template: '<h3>hi, {{ message }}</h3>'
+              })
+            new Vue({
+                el: '#demo6',
+                data: {
+                    msg: "父组件传值给子组件组件"
+                },
+                // 局部组件
+                components: {
+                    'my-name': {
+                        props: ['message'],
+                        template: '<h1>hello {{ message }}</h1>'
+                        }
+                    }
+            })
+        </script>
+        <!-- 子组件传值给父组件 -->
+        <div id="demo7">
+            <div id="counter-event-example">
+                <p>{{ total }}</p>
+                <button-counter v-on:increment="incrementTotal"></button-counter><br/>
+                <button-counter v-on:increment="incrementTotal"></button-counter>
+            </div>
+        </div>
+        <script>
+            Vue.component('button-counter', {
+                template: '<div><button v-on:click="incrementHandler(1)">-</button>{{ counter }}<button v-on:click="incrementHandler(2)">+</button></div>',
+                data: function () {
+                    return {
+                    counter: 0
+                    }
+                },
+                methods: {
+                    incrementHandler: function (v) {
+                        if(v==1){
+                            this.counter -= 1
+                            this.$emit('increment',1)
+                        }else{ 
+                            this.counter += 1
+                            this.$emit('increment',2)
+                        }
+                    
+                    }
+                },
+                })
+            new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function (d) {
+                    if(d==1){
+                        this.total -= 1
+                    }else{
+                        this.total += 1
+                    }
+                }
+            }
+            })
+        </script>
+    </body>
+</html>

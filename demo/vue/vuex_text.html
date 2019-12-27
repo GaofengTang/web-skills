@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vuedemo3</title>
+        <meta charset="UTF-8">
+        <script src="./vue.min.js"></script>
+
+    </head>
+    <body>
+        <div id="box">
+            <div>{{count}}</div>
+            <myaddbtn :count="count"></myaddbtn>
+            <myremovebtn :count="count"></myremovebtn>
+        </div>
+        <script type="text/javascript">
+            var store = new Vuex.Store({
+                state: {
+                    count: 0
+                },
+                mutations:{
+                    add: function(state) {
+                        state.count++;
+                      },
+                    remove: function(state) {
+                        state.count--;
+                      }
+                }
+            }) 
+
+            new Vue({
+                el: "#box",
+                computed: {
+                    count: function() { 
+                        store.state.count;
+                     }
+                },
+                components: {
+                    "myaddbtn": {
+                        template: '<button @click="but">+</button>',
+                        methods:{
+                            but: function(){
+                                store.commit('add')
+                            }
+                        }
+                    },
+                    "myremovebtn": {
+                        template: '<button @click="but">-<button>',
+                        methods:{
+                            but: function(){
+                                store.commit('remove')
+                            }
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

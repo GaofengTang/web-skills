@@ -107,13 +107,8 @@
             /* 中间一个球*/
             .contentBox .text8{
                 display: flex;
-                flex-direction: column;
                 justify-content: center;
-
-            }
-            .contentBox .text8 ul{
-                display: flex;
-                justify-content: center;
+                align-items: center;
             }
         </style>
     </head>
@@ -164,5 +159,23 @@
                 <ul><li></li></ul>
             </div>
         </div>
+        <script>
+            var promise = new Promise(function(resolve, reject){
+                console.log('............');
+                // 这是promise的一个机制，只有promise实例的状态变为resolved，才会会触发then回调函数
+                resolve(); 
+            });
+            promise.then(function(){
+                for(var i=0;i<10;i++) {
+                    console.log('c')
+                }    
+            })
+            .then(function(){
+                console.log('b')
+            })
+            .then(function(){
+                console.log('a')
+            })
+        </script>
     </body>
 </html>

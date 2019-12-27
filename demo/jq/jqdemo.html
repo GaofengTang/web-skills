@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>jq</title> 
+        <script src="./jquery-3.4.1.min.js"></script>
+        <script src="./time.js"></script>
+        <link rel="stylesheet" href="./time.css">
+        <style>
+            thead{
+                color: chocolate;
+            }
+            tbody{
+                color: darkblue;
+                text-align: center;
+            }
+        </style>
+        <script>
+            // $.get('./demo1.txt', function(data){
+            //     $('h1').text(data)
+            // })
+
+            $.ajax({
+                type: 'get',
+                url: './demo1.txt',
+                jsonp: 'cb', 
+                dataType: 'jsonp',
+                data:{
+                    wd: 'json'
+                }
+            }).done(function (resp){
+                $('h1').html(resp.s)
+            })
+        </script>
+    </head>
+    <body>
+        <table border="1" cellspacing=0>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" name="animal" id="animal"></th>
+                    <th>favorite animal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>cat</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>dog</td>
+                </tr>                
+                <tr>
+                    <td><input type="checkbox" name="" id=""></td>
+                    <td>tiger</td>
+                </tr>                
+            </tbody>
+        </table>
+        <script>
+            $('thead tr  th input').change(function () { 
+                var a = $(this).prop('checked');
+                $('tbody input').prop('checked',a)               
+            });
+        </script>
+        <h1>this is a title</h1>
+
+        <div id="text">
+            <div id="text1">
+                <p class="text3">hhhhh</p>
+            </div>
+        </div>
+        <script>
+            var a =document.getElementById('text').getElementById('text1').getElementByClassName('text3');
+            a.style.color = 'red';
+
+        </script>
+    </body>
+</html>

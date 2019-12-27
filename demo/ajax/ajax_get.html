@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ajax</title>
+        <script src="./jquery-3.4.1.min.js"></script>
+        <script>
+            // var xml = new XMLHttpRequest;
+            // xml.onreadystatechange = function(){
+            //     if(xml.readyState != 4){
+            //         return -1;
+            //     }
+            //     if(xml.status >= 200 && xml.status <= 300){
+            //         document.getElementById('poem').innerHTML = xml.responseText;
+            //     }else{
+            //         console.log("请求失败")
+            //     }
+            // };
+            // xml.open('GET', './text.txt', true);
+            // xml.send();
+
+
+            // $(document).ready(function(){
+            //     $("input").click(function(){
+            //         $.ajax({url:"./text.txt",async:true,success:function(result){
+            //             $("div").text(result);
+            //         }});
+            //     });
+            // });
+            
+
+            // $(document).ready(function(){
+            //     $("input").click(function(){
+            //         $("#poem").load("./test.txt #id")
+            //     });
+            // });
+
+        </script>
+        <style>
+
+        </style>
+        <body>
+            <div id="demo">
+                <input type="checkbox" name="all_choose" id="all_choose"><label for="all_choose">全选</label>
+                <input type="checkbox" name="all_choose" id="all_chooseN"><label for="all_chooseN">全不选</label>
+                <form action="" id="form_input">
+                    <input type="checkbox" name="animal" id="cat"><label for="cat">Cat</label>
+                    <input type="checkbox" name="animal" id="dog"><label for="dog">Dog</label>
+                    <input type="checkbox" name="animal" id="tiger"><label for="tiger">Tiger</label>
+                </form>
+            </div>
+            <script>
+                // function allchoose(id){
+                //     var status = document.getElementById(id).getAttribute("checked");
+                //     var all_input = document.querySelectorAll("#demo #form_input input");
+                //     for(var i = 0; i < all_input.length; i++){
+                //         all_input[i].setAttribute("checked", status)
+                //     }
+                // }
+                document.getElementById("all_choose").addEventListener('change', function () {
+                    var all_input = document.querySelectorAll("#demo #form_input input");
+                    for(var i = 0; i < all_input.length; i++){
+                        all_input[i].checked = true
+                    }
+                    document.getElementById('all_chooseN').checked = false;
+                  })
+                document.getElementById("all_chooseN").addEventListener('change', function () {
+                    var all_input = document.querySelectorAll("#demo #form_input input");
+                    for(var i = 0; i < all_input.length; i++){
+                        all_input[i].checked = false
+                    }
+                    document.getElementById('all_choose').checked = false;
+                })
+                // $('#all_choose').change(function () {
+                //     var a = $(this).prop('checked');
+                //     $('#form_input input').prop('checked', a)
+                // })
+                var a = {
+                    name: 'kangkang',
+                    age: 10,
+                    callhim: () => {
+                        console.log(this.a.name + "年龄是" + this.age)
+                      }
+                }
+                a.callhim()
+            </script>
+        </body>
+    </head>
+</html>

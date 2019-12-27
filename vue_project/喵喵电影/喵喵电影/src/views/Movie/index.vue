@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="movieBox">
     <Header titles="喵喵电影" />
     <div id="content">
       <div class="fixed">
@@ -16,9 +16,19 @@
           </div>
         </div>
       </div>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view class="filmsArea"></router-view>
+      </keep-alive>
     </div>
     <Footer class="footer"/>
+    <div class="messageBox" v-show="theBox">
+        <h2>当前定位</h2>
+        <p>{{ this.defaultCity }}</p>
+        <ul>
+          <li @click="theBox = false">取消</li>
+          <li class="changeBtn" @click="changeCity">切换定位</li>
+        </ul>
+    </div>
   </div>
 </template>
 
@@ -29,27 +39,75 @@ import {mapState} from 'vuex'
 export default {
   name: 'movie',
   data () {
-    return {}
+    return {
+      defaultCity: '',
+      defaultId: '',
+      theBox: false
+    }
   },
-  // mounted () {
-  //   this.$axios('/api/getLocation').then(res => {
-  //     var msg = res.data.msg
-  //     if (msg === 'ok') {
-  //       this.defaultCity = res.data.data.nm
-  //     }
-  //   })
-  // },
+  mounted () {
+    this.$axios('/api/getLocation').then(res => {
+      var msg = res.data.msg
+      if (msg === 'ok') {
+        this.defaultCity = res.data.data.nm
+        this.defaultId = res.data.data.id
+        if (this.defaultCity !== this.citynm) {
+          this.theBox = true
+        }
+      }
+    })
+  },
   components: {
     Header,
     Footer
   },
   computed: {
     ...mapState(['citynm', 'cityid'])
+  },
+  methods: {
+    changeCity () {
+      this.$store.commit('getCitynm', {cityNm: this.defaultCity, cityId: this.defaultId})
+      this.theBox = false
+    }
   }
 }
 </script>
 
 <style scoped>
+#movieBox{
+  display: flex
+}
+.messageBox{
+  width: 200px;
+  height: 100px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -100px;
+  background: rgb(239, 245, 209);
+  box-shadow: 3px 3px 3px 3px gray;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+}
+.messageBox h2{
+  text-align: center;
+  font-weight: 400;
+}
+.messageBox p{
+  text-align: center;
+}
+.messageBox ul{
+  display: flex;
+}
+.messageBox ul li{
+  flex: 1;
+  text-align: center;
+  border: 1px solid gainsboro;
+}
 #content{
   position: absolute;
   top: 50px;
@@ -118,9 +176,4 @@ export default {
   color: red;
   border-bottom: 2px solid red;
 }
-/* #content .filmsArea{
-  position: relative;
-  top: 50px;
-  margin-top: 20px;
-} */
 </style>

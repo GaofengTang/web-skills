@@ -36,12 +36,20 @@ export default {
     }
   },
   mounted () {
-    this.$axios('/api/movieOnInfoList?cityId=' + this.$store.state.cityid).then((res) => {
-      var msg = res.data.msg
-      if (msg === 'ok') {
-        this.filmList = res.data.data.movieList
-      }
+    this.$nextTick(() => {
+      this.$axios('/api/movieOnInfoList?cityId=' + this.$store.state.cityid).then((res) => {
+        var msg = res.data.msg
+        if (msg === 'ok') {
+          this.filmList = res.data.data.movieList
+        }
+      })
     })
+    // this.$axios('/api/movieOnInfoList?cityId=' + this.$store.state.cityid).then((res) => {
+    //   var msg = res.data.msg
+    //   if (msg === 'ok') {
+    //     this.filmList = res.data.data.movieList
+    //   }
+    // })
     this.$nextTick(() => {
       var scroll = new BScroll(this.$refs.wrapper, {
         tap: true,

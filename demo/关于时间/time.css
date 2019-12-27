@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul li{
+    list-style: none;
+}
+
+/* 秒表格式 */
+#miaobiao{
+    float: left;
+    width: 200px;
+    height: 200px;
+    border: 3px solid olivedrab;
+    border-radius: 3px;
+}
+#miaobiao .screen{
+    float: left;
+    height: 150px;
+    height: 30px;
+    top: 30px;
+    left: 40px;
+    position: relative;
+    border: 1px solid red;
+}
+#miaobiao  ul li{
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 1px solid red;
+    text-align: center;
+    line-height: 30px;
+}
+#miaobiao .button{
+    float: left;
+    width: 200px;
+    position: relative;
+    top: 80px;
+}
+#miaobiao .button input{
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin: 10px;
+} 
+#miaobiao .screen .seconds{
+    background: red;
+}
+
+
+/* 倒计时 */
+#daojishi{
+    width: 186px;
+    height: 64px;
+    background: crimson;
+    float: left;
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+#daojishi ul li{
+    float: left;
+    width: 42px;
+    height: 36px;
+    background-color: #fcfafb;
+    color: #a10000;
+    font-size: 16px;
+    margin-right: 20px;
+    text-align: center;
+    line-height: 36px;
+    position: relative;
+    top: 15px;
+    left: 10px;
+}
+
