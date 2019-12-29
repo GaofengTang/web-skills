@@ -13,6 +13,8 @@ export default new vuex.Store({
       state.cityid = newCity.cityId
     }
   }
+  // module: {
+  // },
   // actions: {
   //   getCitynm: (state, newCity) => {
   //     state.citynm = newCity.cityNm

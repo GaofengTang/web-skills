@@ -49,6 +49,11 @@ export default new Router({
           component: () => import('@/components/Search')
         }
       ]
+    },
+    {
+      path: '/userCenter',
+      name: 'userCenter',
+      component: () => import('@/views/Center')
     }
   ]
 })

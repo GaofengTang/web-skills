@@ -20,7 +20,18 @@
 
 <script>
 export default {
-
+  name: 'Footer',
+  watch: {
+    $route (to, from) {
+      if (to.path == '/Mine') {
+        var token = window.localStorage.getItem('loginIsTrue')
+        console.log(token)
+        if (token) {
+          this.$router.replace('/userCenter')
+        }
+      }
+    }
+  }
 }
 </script>
 
